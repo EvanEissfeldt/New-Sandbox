@@ -34,22 +34,28 @@ def getUniques(aList):
       newList.append(x)
   return newList
 
-def function():
-  
-  with open('test', 'r') as file:
-    x = file.read()
+def successors(file):
+  ans_dict = {}
+  with open(str(file), 'r') as File:
+    x = File.read()
     for char in x:
       if char.isalnum() == False:
-        x = x.replace(char, f' {char}')
-    print(x)
+        x = x.replace(char, f' {char} ')
+    x = x.split()
+
+    for element in x:
+      if element not in ans_dict:
+        try:
+          ans_dict[element] = [x[x.index(element) + 1]]
+        except IndexError:
+          continue
+        
+      else:
+        ans_dict[element].append(x[x.index(element) + 1])
+        
+  print(ans_dict)
+    
+    
     
 
-function()
-  
-
-
-
-
-
-
-
+successors('test')

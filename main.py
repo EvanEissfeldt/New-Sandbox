@@ -37,23 +37,27 @@ def getUniques(aList):
 def successors(file):
   ans_dict = {}
   with open(str(file), 'r') as File:
-    x = File.read()
-    for char in x:
-      if char.isalnum() == False:
-        x = x.replace(char, f' {char} ')
-    x = x.split()
-
-    for element in x:
+    content = File.read()
+    for char in content:
+      if char != ' ':
+        if char.isalnum() == False:
+          content = content.replace(char, f' {char} ')   
+    content = content.split()
+    i = 0
+    ans_dict['.'] = [content[0]]
+    for element in content:
       if element not in ans_dict:
         try:
-          ans_dict[element] = [x[x.index(element) + 1]]
+          ans_dict[element] = [content[i + 1]]
+          i += 1
         except IndexError:
           continue
-        
       else:
-        ans_dict[element].append(x[x.index(element) + 1])
-        
+        if content[i+1] not in ans_dict[element]:
+          ans_dict[element].append(content[i + 1])
+        i += 1
   print(ans_dict)
+  
     
     
     
